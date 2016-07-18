@@ -69,6 +69,7 @@ var ABP = {
 	
 	
 	ABP.create = function (element, params) {
+        window.console.log(params);
 		var elem = element;
 		if(!params){
 			params = {};

@@ -25,6 +25,13 @@ var CommentLoader = (function () {
             throw new Error("Parser expected to be a function.");
         }
         this._parser = parser;
+        if (parser === DandanplayParser) {
+            this._type = "JSON";
+        } else if (parser === BilibiliParser) {
+            this._type = "XML";
+        } else {
+            this._type = "RAW";
+        }
         return this;
     };
     
@@ -56,15 +63,14 @@ var CommentLoader = (function () {
                     }
                 }
             }).bind(this);
+            window.console.log("xxxx");
             xhr.open(method, url, true);
             xhr.send();
         }).bind(this));
     };
     
     Loader.prototype.load = function (method, url) {
-        return this.download(method, url).then((function (data) {
-            this._commentManager.load(data);
-        }).bind(this)); 
+        return this.download(method, url).then((function (data) { this._commentManager.load(data);}).bind(this)); 
     };
 
 	return Loader;
